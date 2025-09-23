@@ -12,10 +12,10 @@ const parseJSON = async <T>(url: string): Promise<T> => {
 }
 
 type League = {
-	idLeague: number,
+	idLeague: string,
 	strLeague: string,
 	strSport: string,
-	strLeagueAlternative: string
+	strLeagueAlternate: string
 }
 
 const endpoints = {

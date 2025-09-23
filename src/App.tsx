@@ -4,16 +4,19 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 import { getAllLeagues } from './api';
+import { LeagueItem } from './components/LeagueItem';
 
 function App() {
 
   const [loading, setLoading] = useState(true);
+  const [leaguesToDisplay, setLeaguesToDisplay] = useState([]);
 
   useEffect(() => {
     const fetchAllLeagues = async () => {
       try {
         const { leagues } = await getAllLeagues();
         console.log(leagues);
+        setLeaguesToDisplay(leagues);
       }
       catch (err) {
         console.error(err);
@@ -30,7 +33,7 @@ function App() {
 
   return (
     <>
-    <button onClick={getAllLeagues}>refetch</button>
+      {leaguesToDisplay.map((league) => <LeagueItem key={league.idLeague} {...league} />)}
     </>
   )
 }
