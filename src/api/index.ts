@@ -11,7 +11,7 @@ const parseJSON = async <T>(url: string): Promise<T> => {
   return cache[url] as Promise<T>;
 };
 
-type League = {
+export type League = {
 	idLeague: string,
 	strLeague: string,
 	strSport: string,

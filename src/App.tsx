@@ -3,13 +3,18 @@ import './App.css';
 
 import { getAllLeagues } from './api';
 import { LeagueItem } from './components/LeagueItem';
+import { SearchBar } from './components/SearchBar';
+import { filterLeaguesText } from './util';
 
 function App() {
 
   const [loading,
     setLoading] = useState(true);
-  const [leaguesToDisplay,
-    setLeaguesToDisplay] = useState([]);
+  const [leaguesFromAPI,
+    setLeaguesFromAPI] = useState([]);
+
+  const [searchTerm,
+    setSearchTerm] = useState("");
 
   useEffect(
     () => {
@@ -19,7 +24,7 @@ function App() {
             leagues 
           } = await getAllLeagues();
           console.log(leagues);
-          setLeaguesToDisplay(leagues);
+          setLeaguesFromAPI(leagues);
         }
         catch (err) {
           console.error(err);
@@ -33,13 +38,25 @@ function App() {
     []
   );
 
+  const leaguesToDisplay = filterLeaguesText(
+    leaguesFromAPI,
+    searchTerm
+  );
 
   if (loading) return <p>Loading...</p>;
 
   return (
     <>
-      {leaguesToDisplay.map((league) => <LeagueItem key={league.idLeague}
-        {...league} />)}
+      <nav>
+        <SearchBar value={searchTerm}
+          onChange={setSearchTerm}
+          placeholder="Search leagues..." />
+        <p>Results {leaguesToDisplay.length}</p>
+      </nav>
+      <main>
+        {leaguesToDisplay.map((league) => <LeagueItem key={league.idLeague}
+          {...league} />)}
+      </main>
     </>
   );
 }
