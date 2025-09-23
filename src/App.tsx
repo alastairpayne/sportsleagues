@@ -4,7 +4,8 @@ import './App.css';
 import { getAllLeagues } from './api';
 import { LeagueItem } from './components/LeagueItem';
 import { SearchBar } from './components/SearchBar';
-import { filterLeaguesText } from './util';
+import { Dropdown } from './components/Dropdown';
+import { filterLeaguesText, dropdownUnselectedValue, getUniqueSports, filterSports } from './util';
 
 function App() {
 
@@ -15,6 +16,10 @@ function App() {
 
   const [searchTerm,
     setSearchTerm] = useState("");
+
+  const [sportDropdownValue,
+    setSportDropdownValue] = useState(dropdownUnselectedValue);
+
 
   useEffect(
     () => {
@@ -38,8 +43,15 @@ function App() {
     []
   );
 
-  const leaguesToDisplay = filterLeaguesText(
-    leaguesFromAPI,
+  const uniqueSports = getUniqueSports(leaguesFromAPI);
+
+  // TODO if we had more than 2 of these, I'd rewrite them so they were compsosable
+  const leaguesToDisplay = 
+  filterLeaguesText(
+    filterSports(
+      leaguesFromAPI,
+      sportDropdownValue
+    ),
     searchTerm
   );
 
@@ -51,6 +63,9 @@ function App() {
         <SearchBar value={searchTerm}
           onChange={setSearchTerm}
           placeholder="Search leagues..." />
+        <Dropdown value={sportDropdownValue}
+          onChange={setSportDropdownValue}
+          options={uniqueSports} />
         <p>Results {leaguesToDisplay.length}</p>
       </nav>
       <main>

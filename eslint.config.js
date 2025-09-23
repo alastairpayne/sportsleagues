@@ -24,9 +24,9 @@ export default defineConfig([
       semi: ["error", "always"],
       indent: ["error", 2, {"SwitchCase": 1}],
       "object-curly-newline": ["error", {
-        ObjectPattern: { multiline: true, minProperties: 1 }, // 👈 affects destructuring
-        ObjectExpression: { multiline: true, consistent: true }, // affects objects
-        ImportDeclaration: { multiline: true, consistent: true }, // affects imports
+        ObjectPattern: { multiline: true, minProperties: 1 },
+        ObjectExpression: { multiline: true, consistent: true },
+        ImportDeclaration: { multiline: true, consistent: true },
       }],
       "object-property-newline": ["error", { allowAllPropertiesOnSameLine: false }],
       "function-paren-newline": ["error", "multiline"],
