@@ -45,15 +45,9 @@ function App() {
 
   const uniqueSports = getUniqueSports(leaguesFromAPI);
 
-  // TODO if we had more than 2 of these, I'd rewrite them so they were compsosable
-  const leaguesToDisplay = 
-  filterLeaguesText(
-    filterSports(
-      leaguesFromAPI,
-      sportDropdownValue
-    ),
-    searchTerm
-  );
+  const leaguesToDisplay = leaguesFromAPI
+  .filter(filterSports(sportDropdownValue))
+  .filter(filterLeaguesText(searchTerm));
 
   if (loading) return <p>Loading...</p>;
 
