@@ -7,12 +7,17 @@ type LeagueItemProps = {
 	strLeagueAlternate: string
 };
 
-export const LeagueItem: React.FC<LeagueItemProps> = ({ idLeague, strLeague, strSport, strLeagueAlternate}) => {
-	return (
-		<div>
-			<h2>{strLeague}</h2>
-			<p>{strSport}</p>	
-			<p>{strLeagueAlternate}</p>
-		</div>
-	);
-}
+export const LeagueItem: React.FC<LeagueItemProps> = ({
+  idLeague,
+  strLeague, 
+  strSport,
+  strLeagueAlternate,
+}) => {
+  return (
+    <div>
+      <h2>{strLeague}</h2>
+      <p>{strSport}</p>	
+      <p>{strLeagueAlternate}</p>
+    </div>
+  );
+};
