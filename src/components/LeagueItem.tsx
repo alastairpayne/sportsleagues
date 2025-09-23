@@ -7,7 +7,9 @@ type LeagueItemProps = {
 	idLeague: string,
 	strLeague: string,
 	strSport: string,
-	strLeagueAlternate: string
+	strLeagueAlternate: string,
+	imageUrl?: string,
+	onClick: () => void,
 };
 
 export const LeagueItem: React.FC<LeagueItemProps> = ({
@@ -15,12 +17,17 @@ export const LeagueItem: React.FC<LeagueItemProps> = ({
   strLeague, 
   strSport,
   strLeagueAlternate,
+  onClick,
+  imageUrl,
 }) => {
   return (
-    <div className="league-item">
+    <div className="league-item"
+    	onClick={onClick}>
       <h2>{strLeague}</h2>
       <p>{strSport}</p>	
       <p>{strLeagueAlternate}</p>
+      <p>{imageUrl && <img src={imageUrl}
+        alt={name} />}</p>
     </div>
   );
 };

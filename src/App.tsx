@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
-import { getAllLeagues } from './api';
+import { getAllLeagues, getSeasonBadge } from './api';
 import { LeagueItem } from './components/LeagueItem';
 import { SearchBar } from './components/SearchBar';
 import { Dropdown } from './components/Dropdown';
@@ -20,6 +20,8 @@ function App() {
   const [sportDropdownValue,
     setSportDropdownValue] = useState(dropdownUnselectedValue);
 
+  const [images,
+    setImages] = useState<Record<string, string>>({});
 
   useEffect(
     () => {
@@ -43,11 +45,26 @@ function App() {
     []
   );
 
+  const handleLeagueClick = async (id: string) => {
+    try {
+      const {
+        seasons 
+      } = await getSeasonBadge(id);
+      //TODO - could pull out the season as alt text as well
+      setImages((prev) => ({
+        ...prev,
+        [id]: seasons[0].strBadge 
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const uniqueSports = getUniqueSports(leaguesFromAPI);
 
   const leaguesToDisplay = leaguesFromAPI
-  .filter(filterSports(sportDropdownValue))
-  .filter(filterLeaguesText(searchTerm));
+    .filter(filterSports(sportDropdownValue))
+    .filter(filterLeaguesText(searchTerm));
 
   if (loading) return <p>Loading...</p>;
 
@@ -64,7 +81,9 @@ function App() {
       </nav>
       <main>
         {leaguesToDisplay.map((league) => <LeagueItem key={league.idLeague}
-          {...league} />)}
+          {...league}
+          imageUrl={images[league.idLeague]}
+          onClick={() => handleLeagueClick(league.idLeague)}/>)}
       </main>
     </>
   );

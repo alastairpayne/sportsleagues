@@ -20,6 +20,7 @@ export type League = {
 
 const endpoints = {
   allLeagues: 'https://www.thesportsdb.com/api/v1/json/3/all_leagues.php',
+  seasonBadge: 'https://www.thesportsdb.com/api/v1/json/3/search_all_seasons.php?badge=1'
 };
 
 const cache : {
@@ -28,4 +29,8 @@ const cache : {
 
 export const getAllLeagues = () => {
   return parseJSON<League[]>(endpoints.allLeagues);
+};
+
+export const getSeasonBadge = (id: string) => {
+  return parseJSON(`${endpoints.seasonBadge}&id=${id}`);
 };
