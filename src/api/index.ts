@@ -1,11 +1,14 @@
 const parseJSON = async <T>(url: string): Promise<T> => {
-	const res = await fetch(url);
+	if (!cache[url]) {
+		const res = await fetch(url);
 
-	if (!res.ok){
-		throw new Error(`Failed to fetch ${url} ${res.status}`);
+		if (!res.ok){
+			throw new Error(`Failed to fetch ${url} ${res.status}`);
+		}
+
+		cache[url] = res.json();
 	}
-
-	return res.json() as Promise<T>;
+	return cache[url] as Promise<T>;
 }
 
 type League = {
@@ -15,6 +18,14 @@ type League = {
 	strLeagueAlternative: string
 }
 
+const endpoints = {
+	allLeagues: 'https://www.thesportsdb.com/api/v1/json/3/all_leagues.php',
+}
+
+const cache : {
+	[url: string] : unknown
+} = {};
+
 export const getAllLeagues = () => {
-	return parseJSON<League[]>('https://www.thesportsdb.com/api/v1/json/3/all_leagues.php');
+	return parseJSON<League[]>(endpoints.allLeagues);
 }

@@ -30,6 +30,7 @@ function App() {
 
   return (
     <>
+    <button onClick={getAllLeagues}>refetch</button>
     </>
   )
 }
