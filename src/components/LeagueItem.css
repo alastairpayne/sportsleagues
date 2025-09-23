@@ -1,0 +1,7 @@
+.league-item {
+    box-shadow: 0px 0px 2px 0px;
+    padding: 4px;
+    margin: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
