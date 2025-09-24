@@ -26,8 +26,7 @@ export const LeagueItem: React.FC<LeagueItemProps> = ({
       <h2>{strLeague}</h2>
       <p>{strSport}</p>	
       <p>{strLeagueAlternate}</p>
-      <p>{imageUrl && <img src={imageUrl}
-        alt={name} />}</p>
+      <p>{imageUrl && <img src={imageUrl} />}</p>
     </div>
   );
 };
