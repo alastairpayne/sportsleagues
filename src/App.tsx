@@ -30,7 +30,6 @@ function App() {
           const {
             leagues 
           } = await getAllLeagues();
-          console.log(leagues);
           setLeaguesFromAPI(leagues);
         }
         catch (err) {
