@@ -11,7 +11,7 @@ Steps - to run locally
 ## Design Decisions
 * Tooling: Minimal React + Vite - linting rules are not perfect
 * Component based - presentational components, avoided polluting them with state or API knowledge
-* * As a refinement I would make a folder for each component to group files (e.g. css) and then expose via an index file
+  * As a refinement I would make a folder for each component to group files (e.g. css) and then expose via an index file
 * State management - Given the scope of the app, I've kept this to container/component, using the App file to manage application state
 * API integration - I've kept this encapsulated, and since I wasn't implementing React Query or similar, I just wrote simple caching myself. Error handling is very rudimentary and I haven't handled status codes or bad data
 
